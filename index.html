@@ -631,29 +631,46 @@
       </div>
     </section>
 
-    <!-- ======= Dashboard Section ======= -->
-    <div class="tableauPlaceholder" id="viz1681653187296" style="width: 100%; height: 800px;">
-  <object class="tableauViz" 
-          title="Drive Smart: EV Charge & Range Analysis"
-          width="100%" 
-          height="800"
-          data="https://public.tableau.com/views/DriveSmartEVChargeRangeAnalysis/ElectricalVehicalDashboard?:embed=y&:display_count=yes&:showVizHome=no&:origin=viz_share_link">
-    
-    <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
-    <param name="embed_code_version" value="3" />
-    <param name="site_root" value="" />
-    <param name="name" value="DriveSmartEVChargeRangeAnalysis/ElectricalVehicalDashboard" />
-    <param name="tabs" value="no" />
-    <param name="toolbar" value="yes" />
-
-    <!-- Fallback for older browsers -->
-    <p>Your browser doesn’t support embedded dashboards. 
-       <a href="https://public.tableau.com/views/DriveSmartEVChargeRangeAnalysis/ElectricalVehicalDashboard?publish=yes" target="_blank">View it directly here</a>.
-    </p>
-    
-  </object>
+   <!-- ======= Dashboard Section ======= -->
+<!-- ======= Dashboard Section - Universal Embed ======= -->
+<div class="tableau-embed-container" style="width:100%; height:800px;">
+  <!-- Modern Browser Embed (iframe) -->
+  <iframe 
+    src="https://public.tableau.com/views/DrivingtheFutureInsightsintoElectricVehicles/DrivingtheFutureInsightsintoElectricVehicles?:embed=y&:showVizHome=no&:display_count=y&:toolbar=yes"
+    width="100%" 
+    height="100%"
+    frameborder="0"
+    title="Driving the Future: Insights into Electric Vehicles"
+    aria-label="Interactive Electric Vehicle Data Dashboard"
+    style="display:block;"
+    allowfullscreen>
+  </iframe>
+  
+  <!-- Fallback Content -->
+  <div class="tableau-fallback" style="display:none; padding:20px; background:#f5f5f5; border-radius:5px; text-align:center;">
+    <h3>Having trouble viewing the dashboard?</h3>
+    <p>Try these solutions:</p>
+    <ol style="text-align:left; max-width:500px; margin:10px auto;">
+      <li>Refresh the page</li>
+      <li>Check your internet connection</li>
+      <li>Try a different browser (Chrome, Firefox, Edge recommended)</li>
+    </ol>
+    <a href="https://public.tableau.com/views/DrivingtheFutureInsightsintoElectricVehicles/DrivingtheFutureInsightsintoElectricVehicles?:embed=y&:showVizHome=no&:display_count=y&:toolbar=yes" 
+       target="_blank"
+       style="display:inline-block; padding:10px 20px; background:#4CAF50; color:white; text-decoration:none; border-radius:4px; margin-top:10px;">
+      Open Dashboard in New Tab
+    </a>
+  </div>
 </div>
 
+<style>
+  .tableau-embed-container {
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+</style>
 <!-- Load Tableau JS API -->
 <script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
 
