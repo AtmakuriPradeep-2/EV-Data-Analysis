@@ -16,4 +16,4 @@ This repository contains comprehensive data analysis of electric vehicle trends,
 Explore the live project dashboard:  
 🔗 [EV Data Analysis Portal](https://atmakuripradeep-2.github.io/EV-Data-Analysis/)
 
-## Repository Structure
+
