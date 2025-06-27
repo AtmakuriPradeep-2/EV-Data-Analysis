@@ -25,71 +25,6 @@
 
   <!-- Template Main CSS File -->
   <style>
-
-
-/* Additional Mobile Fixes */
-@media (max-width: 576px) {
-  /* Hero section adjustments */
-  .hero {
-    padding: 60px 0 30px 0;
-    text-align: center;
-  }
-  
-  .hero h1 {
-    font-size: 1.8rem;
-    line-height: 1.3;
-  }
-  
-  .hero h2 {
-    font-size: 1.1rem;
-  }
-  
-  /* Dashboard/Tableau embed fixes */
-  .tableau-embed-container, .tableau-embed {
-    height: 500px; /* Reduced height for mobile */
-  }
-  
-  /* Stats section - stack the counters */
-  .stats-section .col-6 {
-    width: 50%;
-    margin-bottom: 15px;
-  }
-  
-  .stats-section .display-4 {
-    font-size: 1.8rem;
-  }
-  
-  /* Contact form adjustments */
-  .php-email-form .col-md-6 {
-    width: 100%;
-  }
-  
-  /* Feature boxes full width */
-  .feature-box {
-    margin-bottom: 15px;
-  }
-  
-  /* Navigation menu fixes */
-  .navbar ul {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .navbar a {
-    padding: 8px 10px;
-  }
-  
-  .getstarted {
-    margin-left: 0;
-    margin-top: 10px;
-  }
-  
-  /* Footer adjustments */
-  .footer .col-lg-4, 
-  .footer .col-lg-2 {
-    margin-bottom: 20px;
-  }
-}
     :root {
       --primary-color: #00b4d8;
       --secondary-color: #0077b6;
@@ -697,174 +632,20 @@
     </section>
 
    <!-- ======= Dashboard Section ======= -->
-<div class="tableau-embed-responsive-container">
-  <div class="tableau-embed-wrapper">
-    <iframe 
-      src="https://public.tableau.com/views/DrivingtheFutureInsightsintoElectricVehicles/DrivingtheFutureInsightsintoElectricVehicles?:embed=y&:showVizHome=no&:display_count=y&:toolbar=yes"
-      width="100%"
-      height="100%"
-      frameborder="0"
-      title="Driving the Future: Insights into Electric Vehicles"
-      aria-label="Interactive Electric Vehicle Data Dashboard"
-      allowfullscreen>
-    </iframe>
-  </div>
-  <div class="tableau-mobile-controls">
-    <button class="tableau-fullscreen-btn" onclick="toggleFullscreen()">
-      <i class="bi bi-arrows-fullscreen"></i> Fullscreen
-    </button>
-    <a href="https://public.tableau.com/views/DrivingtheFutureInsightsintoElectricVehicles/DrivingtheFutureInsightsintoElectricVehicles?:embed=y&:showVizHome=no&:display_count=y&:toolbar=yes" 
-       target="_blank" 
-       class="tableau-newtab-btn">
-      <i class="bi bi-box-arrow-up-right"></i> Open in New Tab
-    </a>
-  </div>
-</div>
-
-<style>
-  /* Add this to your existing CSS */
-  .tableau-embed-responsive-container {
-    position: relative;
-    width: 100%;
-    margin: 20px 0;
-    border: 1px solid #e1e1e1;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  }
+<!-- ======= Dashboard Section - Universal Embed ======= -->
+<div class="tableau-embed-container" style="width:100%; height:800px;">
+  <!-- Modern Browser Embed (iframe) -->
+  <iframe 
+    src="https://public.tableau.com/views/DrivingtheFutureInsightsintoElectricVehicles/DrivingtheFutureInsightsintoElectricVehicles?:embed=y&:showVizHome=no&:display_count=y&:toolbar=yes"
+    width="100%" 
+    height="100%"
+    frameborder="0"
+    title="Driving the Future: Insights into Electric Vehicles"
+    aria-label="Interactive Electric Vehicle Data Dashboard"
+    style="display:block;"
+    allowfullscreen>
+  </iframe>
   
-  .tableau-embed-wrapper {
-    width: 100%;
-    height: 0;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio by default */
-    position: relative;
-  }
-  
-  .tableau-embed-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-  
-  .tableau-mobile-controls {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    background: #f8f9fa;
-    border-top: 1px solid #e1e1e1;
-  }
-  
-  .tableau-fullscreen-btn,
-  .tableau-newtab-btn {
-    display: flex;
-    align-items: center;
-    padding: 8px 12px;
-    font-size: 14px;
-    border-radius: 4px;
-    background: var(--primary-color);
-    color: white;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-  
-  .tableau-fullscreen-btn:hover,
-  .tableau-newtab-btn:hover {
-    background: var(--secondary-color);
-    transform: translateY(-2px);
-  }
-  
-  .tableau-fullscreen-btn i,
-  .tableau-newtab-btn i {
-    margin-right: 5px;
-  }
-  
-  /* Mobile-specific adjustments */
-  @media (max-width: 768px) {
-    .tableau-embed-wrapper {
-      padding-bottom: 100%; /* More vertical space for mobile */
-      min-height: 500px; /* Minimum height guarantee */
-    }
-    
-    .tableau-mobile-controls {
-      flex-direction: column;
-      gap: 8px;
-    }
-    
-    .tableau-fullscreen-btn,
-    .tableau-newtab-btn {
-      justify-content: center;
-      width: 100%;
-    }
-  }
-  
-  /* Fullscreen mode styles */
-  .tableau-fullscreen-mode {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    background: white;
-    margin: 0;
-    border-radius: 0;
-  }
-  
-  .tableau-fullscreen-mode .tableau-embed-wrapper {
-    height: calc(100% - 50px);
-    padding-bottom: 0;
-  }
-  
-  .tableau-fullscreen-mode .tableau-mobile-controls {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 10000;
-  }
-</style>
-
-<script>
-  // Add this to your existing JavaScript
-  function toggleFullscreen() {
-    const container = document.querySelector('.tableau-embed-responsive-container');
-    const iframe = document.querySelector('.tableau-embed-wrapper iframe');
-    
-    if (!container.classList.contains('tableau-fullscreen-mode')) {
-      // Enter fullscreen
-      container.classList.add('tableau-fullscreen-mode');
-      iframe.setAttribute('height', '100%');
-      document.body.style.overflow = 'hidden';
-    } else {
-      // Exit fullscreen
-      container.classList.remove('tableau-fullscreen-mode');
-      iframe.setAttribute('height', '100%');
-      document.body.style.overflow = '';
-    }
-  }
-  
-  // Adjust iframe height on mobile orientation change
-  function handleOrientationChange() {
-    const wrapper = document.querySelector('.tableau-embed-wrapper');
-    if (window.innerWidth < 768) {
-      if (window.matchMedia("(orientation: portrait)").matches) {
-        wrapper.style.paddingBottom = '120%';
-      } else {
-        wrapper.style.paddingBottom = '60%';
-      }
-    }
-  }
-  
-  // Initialize
-  window.addEventListener('DOMContentLoaded', () => {
-    handleOrientationChange();
-    window.addEventListener('resize', handleOrientationChange);
-    window.addEventListener('orientationchange', handleOrientationChange);
-  });
-</script>
   <!-- Fallback Content -->
   <div class="tableau-fallback" style="display:none; padding:20px; background:#f5f5f5; border-radius:5px; text-align:center;">
     <h3>Having trouble viewing the dashboard?</h3>
