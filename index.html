@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+  <meta name="theme-color" content="#00b4d8">
 
   <title>EV Analytics | Electric Vehicle Data Insights</title>
   <meta content="Comprehensive analytics platform for electric vehicle market trends, performance data, and industry insights" name="description">
@@ -13,8 +14,9 @@
   <link href="assets/img/ev-favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Preload critical resources -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Nunito:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Nunito:wght@400;600;700&display=swap"></noscript>
 
   <!-- Vendor CSS Files -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,91 +27,321 @@
 
   <!-- Template Main CSS File -->
   <style>
+      
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        /* Navbar Container */
+        .navbar {
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Navbar Layout */
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Logo */
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e40af;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: #3b82f6;
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        /* Regular Buttons */
+        .nav-btn.regular {
+            color: #1e40af;
+            background: #eff6ff;
+            border: 1px solid #dbeafe;
+        }
+
+        .nav-btn.regular:hover {
+            background: #dbeafe;
+            transform: translateY(-1px);
+        }
+
+        /* Active Button */
+        .nav-btn.active {
+            color: white;
+            background: #3b82f6;
+            border: 1px solid #2563eb;
+        }
+
+        /* CTA Button */
+        .nav-btn.cta {
+            color: white;
+            background: #10b981;
+            border: 1px solid #059669;
+            font-weight: 600;
+        }
+
+        .nav-btn.cta:hover {
+            background: #059669;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(5, 150, 105, 0.2);
+        }
+
+        /* Mobile Menu Toggle */
+        /* Mobile Menu Toggle */
+.menu-toggle {
+    display: none; /* Hidden by default on desktop */
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #1e40af;
+    cursor: pointer;
+    position: absolute;
+    right: 20px; /* Distance from right edge */
+    top: 50%;
+    transform: translateY(-50%); /* Perfect vertical centering */
+    z-index: 1001; /* Above other elements */
+    padding: 8px; /* Better touch target */
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block; /* Only show on mobile */
+    }
+    
+    /* Adjust navbar container to account for toggle button */
+    .nav-container {
+        padding-right: 50px; /* Space for the toggle */
+        position: relative; /* Needed for absolute positioning of toggle */
+    }
+}
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-buttons {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem;
+                gap: 0.5rem;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+                z-index: 999;
+            }
+
+            .nav-buttons.active {
+                transform: translateY(0);
+            }
+
+            .nav-btn {
+                width: 100%;
+                text-align: center;
+                padding: 0.75rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+    
     :root {
       --primary-color: #00b4d8;
+      --primary-hover: #0093b3;
       --secondary-color: #0077b6;
       --dark-color: #03045e;
       --light-color: #caf0f8;
       --accent-color: #ff9e00;
+      --text-color: #444;
+      --light-bg: #f8f9fa;
+      --white: #ffffff;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
     }
     
+    /* Base Styles */
     body {
       font-family: 'Poppins', sans-serif;
-      color: #444;
+      color: var(--text-color);
       overflow-x: hidden;
+      line-height: 1.6;
     }
     
     h1, h2, h3, h4, h5, h6 {
       font-family: 'Nunito', sans-serif;
       font-weight: 700;
+      line-height: 1.2;
     }
     
     a {
       text-decoration: none;
       color: var(--primary-color);
+      transition: var(--transition);
+    }
+    
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    
+    /* Layout Components */
+    .section {
+      padding: 5rem 0;
+      position: relative;
+    }
+    
+    .section-header {
+      text-align: center;
+      padding-bottom: 3rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .section-header h2 {
+      font-size: 2.5rem;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+    
+    .section-header h2:after {
+      content: '';
+      position: absolute;
+      width: 50%;
+      height: 4px;
+      bottom: -10px;
+      left: 25%;
+      background: var(--primary-color);
+      border-radius: 2px;
+    }
+    
+    .section-header p {
+      font-size: 1.1rem;
+      color: #666;
     }
     
     /* Header */
     .header {
-      transition: all 0.5s;
-      background: rgba(255, 255, 255, 0.95);
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 999;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      backdrop-filter: blur(5px);
     }
     
     .header-scrolled {
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--shadow-md);
     }
     
-    .logo img {
-      max-height: 40px;
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .clean-logo {
+      height: 40px;
+      width: auto;
+      transition: var(--transition);
+    }
+    
+    .navbar {
+      padding: 0.5rem 0;
     }
     
     .navbar ul {
-      margin: 0;
-      padding: 0;
       display: flex;
       list-style: none;
       align-items: center;
+      margin: 0;
+      padding: 0;
     }
     
     .navbar li {
       position: relative;
     }
     
-    .navbar a, .navbar a:focus {
+    .navbar a {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 15px;
-      font-size: 15px;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
       font-weight: 500;
-      color: #2a2a2a;
+      color: var(--dark-color);
       white-space: nowrap;
-      transition: 0.3s;
+      transition: var(--transition);
     }
     
-    .navbar a i, .navbar a:focus i {
-      font-size: 12px;
-      line-height: 0;
-      margin-left: 5px;
-    }
-    
-    .navbar a:hover, .navbar .active, .navbar .active:focus, .navbar li:hover>a {
+    .navbar a:hover, 
+    .navbar .active, 
+    .navbar .active:focus, 
+    .navbar li:hover>a {
       color: var(--primary-color);
     }
     
     .getstarted {
       background: var(--primary-color);
-      color: #fff;
-      padding: 8px 20px;
-      margin-left: 15px;
+      color: var(--white);
+      padding: 0.5rem 1.25rem;
+      margin-left: 1rem;
       border-radius: 4px;
       font-weight: 600;
+      transition: var(--transition);
     }
     
     .getstarted:hover {
-      color: #fff;
-      background: rgba(0, 180, 216, 0.8);
+      background: var(--primary-hover);
+      color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .mobile-nav-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--dark-color);
     }
     
     /* Hero Section */
@@ -117,43 +349,63 @@
       width: 100%;
       min-height: 100vh;
       background: linear-gradient(135deg, rgba(0,180,216,0.1) 0%, rgba(202,240,248,0.05) 100%);
-      padding: 120px 0 60px 0;
+      padding: 9rem 0 5rem;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 70vh;
+      height: 70vh;
+      background: radial-gradient(circle, rgba(0,180,216,0.1) 0%, rgba(0,180,216,0) 70%);
+      border-radius: 50%;
+      z-index: 0;
     }
     
     .hero h1 {
-      font-size: 3rem;
-      font-weight: 700;
-      line-height: 1.2;
+      font-size: clamp(2rem, 5vw, 3.5rem);
       background: linear-gradient(to right, var(--dark-color), var(--secondary-color));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
     }
     
     .hero h2 {
-      color: #4a4a4a;
-      margin: 15px 0 30px 0;
-      font-size: 1.5rem;
+      color: var(--text-color);
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      font-weight: 400;
+      margin-bottom: 2rem;
     }
     
     .btn-get-started {
       background: var(--primary-color);
       border: 2px solid var(--primary-color);
-      color: #fff;
-      padding: 12px 30px;
+      color: var(--white);
+      padding: 0.75rem 2rem;
       border-radius: 4px;
       font-weight: 600;
-      transition: all 0.3s ease;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
     }
     
     .btn-get-started:hover {
       background: transparent;
       color: var(--primary-color);
       transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(0, 180, 216, 0.2);
+      box-shadow: var(--shadow-md);
     }
     
     .hero-img {
       animation: float 6s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
     }
     
     @keyframes float {
@@ -165,239 +417,120 @@
     /* Stats Section */
     .stats-section {
       background: var(--light-color);
+      padding: 3rem 0;
     }
     
-    .stats-section .display-4 {
-      font-size: 2.5rem;
-    }
-    
-    /* Sections */
-    section {
-      padding: 80px 0;
-    }
-    
-    .section-header {
+    .stat-item {
       text-align: center;
-      padding-bottom: 50px;
+      padding: 1rem;
     }
     
-    .section-header h2 {
-      font-size: 2.5rem;
+    .stat-item .display-4 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
       font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Dashboard Section */
+    .dashboard-section {
+      background: var(--light-bg);
+    }
+    
+    .tableau-embed-responsive-container {
       position: relative;
-      display: inline-block;
+      width: 100%;
+      margin: 2rem 0;
+      border: 1px solid #e1e1e1;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      background: var(--white);
     }
     
-    .section-header h2:after {
-      content: '';
+    .tableau-embed-wrapper {
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      position: relative;
+    }
+    
+    .tableau-embed-wrapper iframe {
       position: absolute;
-      width: 50%;
-      height: 3px;
-      bottom: -10px;
-      left: 25%;
-      background: var(--primary-color);
-    }
-    
-    .section-header p {
-      margin: 15px auto 0 auto;
-      width: 70%;
-    }
-    
-    /* About Section */
-    .skills .skill-bar {
-      height: 5px;
-      background: #e9ecef;
-      border-radius: 3px;
-      margin-bottom: 20px;
-    }
-    
-    .skills .skill-progress {
+      top: 0;
+      left: 0;
+      width: 100%;
       height: 100%;
-      border-radius: 3px;
+      border: none;
+    }
+    
+    .tableau-mobile-controls {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem;
+      background: var(--light-bg);
+      border-top: 1px solid #e1e1e1;
+    }
+    
+    .tableau-fullscreen-btn,
+    .tableau-newtab-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      border-radius: 4px;
       background: var(--primary-color);
-      width: 0;
-      transition: width 1.5s ease-out;
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .tableau-fullscreen-btn:hover,
+    .tableau-newtab-btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .tableau-fullscreen-btn i,
+    .tableau-newtab-btn i {
+      margin-right: 0.5rem;
+    }
+    
+    /* Story Section */
+    .story-section {
+      background: var(--white);
     }
     
     /* Features Section */
     .feature-box {
-      transition: transform 0.3s ease;
-      padding: 20px;
+      padding: 1.5rem;
       border-radius: 8px;
-      background: #fff;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      height: 100%;
+      border: 1px solid rgba(0, 0, 0, 0.05);
     }
     
     .feature-box:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary-color);
     }
     
     .feature-box i {
       font-size: 2rem;
       color: var(--primary-color);
+      margin-bottom: 1rem;
     }
     
-    /* Testimonials */
-    .testimonials-slider {
-      overflow: hidden;
+    .feature-box h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
     }
     
-    .testimonial-item {
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-      padding: 30px;
-      height: 100%;
-    }
     
-    .testimonial-item:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-    }
-    
-    .testimonial-item .stars {
-      color: #ffc107;
-      margin-bottom: 15px;
-    }
-    
-    .testimonial-item .testimonial-img {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-    
-    /* Team Section */
-    .member {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    
-    .member-img {
-      overflow: hidden;
-      border-radius: 10px;
-      position: relative;
-    }
-    
-    .member-img img {
-      transition: transform 0.5s ease;
-    }
-    
-    .member:hover .member-img img {
-      transform: scale(1.1);
-    }
-    
-    .member .social {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      height: 40px;
-      opacity: 0;
-      transition: all 0.3s ease;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .member .social a {
-      color: #fff;
-      margin: 0 10px;
-      transition: all 0.3s ease;
-    }
-    
-    .member .social a:hover {
-      color: var(--primary-color);
-    }
-    
-    .member:hover .social {
-      opacity: 1;
-    }
-    
-    /* Contact Section */
-    .info-box {
-      background: #fff;
-      padding: 30px;
-      border-radius: 8px;
-      height: 100%;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    }
-    
-    .info-box i {
-      font-size: 2rem;
-      color: var(--primary-color);
-      margin-bottom: 15px;
-    }
-    
-    .php-email-form {
-      background: #fff;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    }
-    
-    .php-email-form .form-control {
-      height: 50px;
-      border-radius: 4px;
-      border: 1px solid #ddd;
-    }
-    
-    .php-email-form textarea.form-control {
-      height: auto;
-    }
-    
-    /* Newsletter */
-    .newsletter {
-      background: var(--primary-color);
-      color: #fff;
-    }
-    
-    /* Footer */
-    .footer {
-      background: #2a2a2a;
-      color: #fff;
-    }
-    
-    .footer h4 {
-      color: #fff;
-      margin-bottom: 20px;
-      font-weight: 600;
-    }
-    
-    .footer-links ul {
-      list-style: none;
-      padding: 0;
-    }
-    
-    .footer-links li {
-      padding: 5px 0;
-    }
-    
-    .footer-links a {
-      color: #aaa;
-      transition: all 0.3s ease;
-    }
-    
-    .footer-links a:hover {
-      color: var(--primary-color);
-      padding-left: 5px;
-    }
-    
-    .social-links a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      color: #fff;
-      margin-right: 10px;
-      transition: all 0.3s ease;
-    }
     
     .social-links a:hover {
       background: var(--primary-color);
@@ -406,8 +539,10 @@
     
     .footer .copyright {
       text-align: center;
-      padding-top: 30px;
+      padding-top: 2rem;
+      margin-top: 2rem;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
     }
     
     /* Back to top button */
@@ -415,25 +550,23 @@
       position: fixed;
       visibility: hidden;
       opacity: 0;
-      right: 15px;
-      bottom: 15px;
-      z-index: 996;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 999;
       background: var(--primary-color);
       width: 40px;
       height: 40px;
       border-radius: 4px;
-      transition: all 0.4s;
-    }
-    
-    .back-to-top i {
-      font-size: 24px;
-      color: #fff;
-      line-height: 0;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
     }
     
     .back-to-top:hover {
-      background: rgba(0, 180, 216, 0.8);
-      color: #fff;
+      background: var(--primary-hover);
+      color: var(--white);
     }
     
     .back-to-top.active {
@@ -441,93 +574,461 @@
       opacity: 1;
     }
     
-    /* Responsive */
-    @media (max-width: 991px) {
-      .hero {
-        padding: 80px 0 40px 0;
-        height: auto;
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideInUp {
+      from { 
+        transform: translateY(20px);
+        opacity: 0;
       }
-      
-      .hero h1 {
-        font-size: 2.5rem;
-      }
-      
-      .hero h2 {
-        font-size: 1.3rem;
-      }
-      
-      .section-header p {
-        width: 100%;
+      to { 
+        transform: translateY(0);
+        opacity: 1;
       }
     }
     
-    @media (max-width: 768px) {
-      .hero h1 {
+    /* Responsive Styles */
+    @media (max-width: 1199.98px) {
+      .section {
+        padding: 4rem 0;
+      }
+    }
+    
+    @media (max-width: 991.98px) {
+      .hero {
+        padding: 7rem 0 3rem;
+        text-align: center;
+      }
+      
+      .hero-img {
+        margin-top: 2rem;
+      }
+      
+      .section-header h2 {
         font-size: 2rem;
       }
       
-      .stats-section .display-4 {
-        font-size: 2rem;
+      .mobile-nav-toggle {
+        display: block;
       }
+      
+      .navbar ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--white);
+        box-shadow: var(--shadow-md);
+        flex-direction: column;
+        padding: 1rem 0;
+      }
+      
+      .navbar-mobile ul {
+        display: flex;
+      }
+      
+      .navbar li {
+        padding: 0.5rem 1rem;
+      }
+      
+      .navbar a {
+        padding: 0.5rem 1rem;
+      }
+      
+      .getstarted {
+        margin: 0.5rem 1rem 0;
+        display: inline-block;
+      }
+    }
+    
+    @media (max-width: 767.98px) {
+      .section {
+        padding: 3rem 0;
+      }
+      
+      .section-header h2 {
+        font-size: 1.75rem;
+      }
+      
+      .section-header h2:after {
+        height: 3px;
+        bottom: -8px;
+      }
+      
+      .tableau-mobile-controls {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .tableau-fullscreen-btn,
+      .tableau-newtab-btn {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .stats-section .col-6 {
+        margin-bottom: 1rem;
+      }
+      
+      .feature-box {
+        margin-bottom: 1rem;
+      }
+      
+      .footer .col-lg-4, 
+      .footer .col-lg-2 {
+        margin-bottom: 2rem;
+      }
+    }
+    
+    @media (max-width: 575.98px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .hero h2 {
+        font-size: 1.1rem;
+      }
+      
+      .btn-get-started {
+        padding: 0.6rem 1.5rem;
+      }
+      
+      .section-header h2 {
+        font-size: 1.5rem;
+      }
+      
+      .tableau-embed-wrapper {
+        padding-bottom: 100%;
+      }
+    }
+    
+    /* Fullscreen mode styles */
+    .tableau-fullscreen-mode {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background: var(--white);
+      margin: 0;
+      border-radius: 0;
+    }
+    
+    .tableau-fullscreen-mode .tableau-embed-wrapper {
+      height: calc(100% - 50px);
+      padding-bottom: 0;
+    }
+    
+    .tableau-fullscreen-mode .tableau-mobile-controls {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10000;
     }
   </style>
 </head>
 
 <body>
 
+
+  <!-- ... (keep existing head content) ... -->
+  <style>
+
+  <!-- Meta tags and other head content -->
+  <style>
+    /* Improved Mobile Header Styles */
+    @media (max-width: 991.98px) {
+      .header {
+        padding: 15px 0;
+        height: 70px;
+      }
+      
+      .logo-container {
+        display: flex;
+        align-items: center;
+      }
+      
+      .clean-logo {
+        height: 40px;
+        width: auto;
+      }
+      
+      .navbar {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: calc(100vh - 70px);
+        background: white;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.4s ease;
+        z-index: 999;
+        overflow-y: auto;
+      }
+      
+      .navbar-mobile {
+        right: 0;
+      }
+      
+      .navbar ul {
+        flex-direction: column;
+        padding: 20px;
+        margin: 0;
+      }
+      
+      .navbar li {
+        margin-bottom: 10px;
+      }
+      
+      .navbar a {
+        padding: 12px 15px;
+        font-size: 16px;
+        border-radius: 4px;
+        display: block;
+      }
+      
+      .navbar a:hover {
+        background: rgba(0, 180, 216, 0.1);
+      }
+      
+      .getstarted {
+        margin: 15px 0 0;
+        width: 100%;
+        text-align: center;
+        display: block;
+      }
+      
+      .mobile-nav-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 15px;
+        top: 18px;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+        background: none;
+        border: none;
+        color: var(--dark-color);
+        z-index: 1000;
+      }
+      
+      .mobile-nav-overlay {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 998;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s ease;
+      }
+      
+      .mobile-nav-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    /* Additional Mobile Optimizations */
+    @media (max-width: 767.98px) {
+      .hero {
+        padding: 100px 0 40px;
+        text-align: center;
+        min-height: auto;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+        line-height: 1.3;
+      }
+      
+      .hero h2 {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+      }
+      
+      .btn-get-started {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+      
+      .hero-img {
+        margin-top: 30px;
+        max-width: 80%;
+      }
+      
+      .section {
+        padding: 3rem 0;
+      }
+      
+      .section-header h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
-        <!-- Simple Large Logo -->
-<div class="logo-container">
-  <img src="assets/img/logo3.jpg" 
-       alt="EV Analytics" 
-       width="100" 
-       height="100"
-       class="clean-logo">
-</div>
-
-<style>
-  .logo-container {
-    display: inline-block; /* Ensures proper sizing */
-    padding: 10px; /* Adds breathing space */
-  }
-  
-  .clean-logo {
-    display: block; /* Removes extra space below image */
-    border-radius: 8px; /* Soft rounded corners */
-    transition: transform 0.2s ease; /* Smooth hover effect */
-  }
-  
-  .clean-logo:hover {
-    transform: scale(1.03); /* Subtle hover enlargement */
-  }
-</style>
+        <div class="logo-container">
+          <img src="assets/img/logo3.jpg" alt="EV Analytics" class="clean-logo">
+        </div>
         <span class="ms-2 fw-bold">EV Analytics</span>
       </a>
 
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#dashboard">Dashboard</a></li>
-          <li><a class="nav-link scrollto" href="#features">Features</a></li>
-          <li><a class="nav-link scrollto" href="#story">Story</a></li>
-          <li><a class="nav-link scrollto" href="#team">Team</a></li>
-          <li><a class="getstarted scrollto" href="#contact">Get Started</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav>
+      <nav class="navbar">
+         <div class="nav-buttons" id="navButtons">
+            <a href="#hero" class="nav-btn active">Home</a>
+            <a href="#dashboard" class="nav-btn regular">Dashboard</a>
+            <a href="#features" class="nav-btn regular">Features</a>
+            <a href="#story" class="nav-btn regular">Story</a>
+        
+            <a href="#dashboard" class="nav-btn cta">Get Started</a>
+        </div>
+        </div>
+    </nav>
+
+    <button class="menu-toggle" id="menuToggle">
+            ☰ <!-- Or use an icon font like <i class="bi bi-list"></i> -->
+        </button> 
+      
+      <div class="mobile-nav-overlay"></div>
     </div>
   </header>
+
+  <script>
+    // Enhanced Mobile Navigation Toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+      const navbar = document.querySelector('#navbar');
+      const overlay = document.querySelector('.mobile-nav-overlay');
+      
+      if (mobileNavToggle && navbar) {
+        mobileNavToggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          navbar.classList.toggle('navbar-mobile');
+          overlay.classList.toggle('active');
+          this.querySelector('i').classList.toggle('bi-list');
+          this.querySelector('i').classList.toggle('bi-x');
+        });
+        
+        // Close menu when clicking overlay
+        overlay.addEventListener('click', function() {
+          navbar.classList.remove('navbar-mobile');
+          overlay.classList.remove('active');
+          mobileNavToggle.querySelector('i').classList.add('bi-list');
+          mobileNavToggle.querySelector('i').classList.remove('bi-x');
+        });
+        
+        // Close menu when clicking a link
+        document.querySelectorAll('#navbar .nav-link').forEach(navLink => {
+          navLink.addEventListener('click', function() {
+            navbar.classList.remove('navbar-mobile');
+            overlay.classList.remove('active');
+            mobileNavToggle.querySelector('i').classList.add('bi-list');
+            mobileNavToggle.querySelector('i').classList.remove('bi-x');
+          });
+        });
+      }
+      
+      // Header scroll effect
+      window.addEventListener('scroll', function() {
+        const header = document.querySelector('.header');
+        if (window.scrollY > 100) {
+          header.classList.add('header-scrolled');
+        } else {
+          header.classList.remove('header-scrolled');
+        }
+      });
+    });
+  </script>
+  <!-- ... (rest of your HTML content remains the same) ... -->
+
+    <script>
+        // Mobile menu toggle functionality
+        const menuToggle = document.getElementById('menuToggle');
+        const navButtons = document.getElementById('navButtons');
+
+        menuToggle.addEventListener('click', () => {
+            navButtons.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-btn').forEach(link => {
+            link.addEventListener('click', () => {
+                navButtons.classList.remove('active');
+            });
+        });
+    </script>
+  <script>
+    // Enhanced Mobile Navigation Toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+      const navbar = document.querySelector('#navbar');
+      const overlay = document.querySelector('.mobile-nav-overlay');
+      
+      if (mobileNavToggle && navbar) {
+        mobileNavToggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          navbar.classList.toggle('navbar-mobile');
+          overlay.classList.toggle('active');
+          this.querySelector('i').classList.toggle('bi-list');
+          this.querySelector('i').classList.toggle('bi-x');
+        });
+        
+        // Close menu when clicking overlay
+        overlay.addEventListener('click', function() {
+          navbar.classList.remove('navbar-mobile');
+          overlay.classList.remove('active');
+          mobileNavToggle.querySelector('i').classList.add('bi-list');
+          mobileNavToggle.querySelector('i').classList.remove('bi-x');
+        });
+        
+        // Close menu when clicking a link
+        document.querySelectorAll('#navbar .nav-link').forEach(navLink => {
+          navLink.addEventListener('click', function() {
+            navbar.classList.remove('navbar-mobile');
+            overlay.classList.remove('active');
+            mobileNavToggle.querySelector('i').classList.add('bi-list');
+            mobileNavToggle.querySelector('i').classList.remove('bi-x');
+          });
+        });
+      }
+      
+      // Header scroll effect
+      window.addEventListener('scroll', function() {
+        const header = document.querySelector('.header');
+        if (window.scrollY > 100) {
+          header.classList.add('header-scrolled');
+        } else {
+          header.classList.remove('header-scrolled');
+        }
+      });
+    });
+  </script>
+
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="hero d-flex align-items-center">
     <div class="container">
       <div class="row align-items-center">
-        <div class="col-lg-6 d-flex flex-column justify-content-center">
-          <h1 data-aos="fade-up">Revolutionizing EV Analytics with Smart Data Solutions</h1>
+        <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up">
+          <h1>Revolutionizing EV Analytics with Smart Data Solutions</h1>
           <h2 data-aos="fade-up" data-aos-delay="400">Powering the future of electric mobility through advanced analytics</h2>
           
           <div data-aos="fade-up" data-aos-delay="600">
@@ -540,7 +1041,7 @@
           </div>
         </div>
         <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-         <img src="assets/img/logo.jpg" alt="EV Analytics Dashboard Preview" class="img-fluid" loading="lazy"> 
+          <img src="assets/img/logo.jpg" alt="EV Analytics Dashboard Preview" class="img-fluid" loading="lazy"> 
         </div>
       </div>
     </div>
@@ -551,26 +1052,26 @@
     <div class="container">
       <div class="row gy-4">
         <div class="col-md-3 col-6" data-aos="fade-up">
-          <div class="text-center">
-            <div class="display-4 fw-bold text-primary" data-count="12000">0</div>
+          <div class="stat-item">
+            <div class="display-4 fw-bold" data-count="12000">0</div>
             <p class="mb-0">EV Models Tracked</p>
           </div>
         </div>
         <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="100">
-          <div class="text-center">
-            <div class="display-4 fw-bold text-primary" data-count="850">0</div>
+          <div class="stat-item">
+            <div class="display-4 fw-bold" data-count="850">0</div>
             <p class="mb-0">Charging Stations</p>
           </div>
         </div>
         <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="200">
-          <div class="text-center">
-            <div class="display-4 fw-bold text-primary" data-count="42">0</div>
+          <div class="stat-item">
+            <div class="display-4 fw-bold" data-count="42">0</div>
             <p class="mb-0">Countries Covered</p>
           </div>
         </div>
         <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="300">
-          <div class="text-center">
-            <div class="display-4 fw-bold text-primary" data-count="95">0</div>
+          <div class="stat-item">
+            <div class="display-4 fw-bold" data-count="95">0</div>
             <p class="mb-0">% Accuracy</p>
           </div>
         </div>
@@ -580,7 +1081,7 @@
 
   <main id="main">
     <!-- ======= About Section ======= -->
-    <section id="about" class="about">
+    <section id="about" class="about section">
       <div class="container" data-aos="fade-up">
         <div class="row gx-0">
           <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
@@ -625,57 +1126,48 @@
           </div>
 
           <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-            <img src="assets/img/img3.jpg" alt="EV Analytics Dashboard Preview" class="img-fluid" loading="lazy"> 
+            <img src="assets/img/img3.jpg" alt="EV Analytics Dashboard Preview" class="img-fluid rounded" loading="lazy"> 
           </div>
         </div>
       </div>
     </section>
 
-   <!-- ======= Dashboard Section ======= -->
-<!-- ======= Dashboard Section - Universal Embed ======= -->
-<div class="tableau-embed-container" style="width:100%; height:800px;">
-  <!-- Modern Browser Embed (iframe) -->
-  <iframe 
-    src="https://public.tableau.com/views/DrivingtheFutureInsightsintoElectricVehicles/DrivingtheFutureInsightsintoElectricVehicles?:embed=y&:showVizHome=no&:display_count=y&:toolbar=yes"
-    width="100%" 
-    height="100%"
-    frameborder="0"
-    title="Driving the Future: Insights into Electric Vehicles"
-    aria-label="Interactive Electric Vehicle Data Dashboard"
-    style="display:block;"
-    allowfullscreen>
-  </iframe>
-  
-  <!-- Fallback Content -->
-  <div class="tableau-fallback" style="display:none; padding:20px; background:#f5f5f5; border-radius:5px; text-align:center;">
-    <h3>Having trouble viewing the dashboard?</h3>
-    <p>Try these solutions:</p>
-    <ol style="text-align:left; max-width:500px; margin:10px auto;">
-      <li>Refresh the page</li>
-      <li>Check your internet connection</li>
-      <li>Try a different browser (Chrome, Firefox, Edge recommended)</li>
-    </ol>
-    <a href="https://public.tableau.com/views/DrivingtheFutureInsightsintoElectricVehicles/DrivingtheFutureInsightsintoElectricVehicles?:embed=y&:showVizHome=no&:display_count=y&:toolbar=yes" 
-       target="_blank"
-       style="display:inline-block; padding:10px 20px; background:#4CAF50; color:white; text-decoration:none; border-radius:4px; margin-top:10px;">
-      Open Dashboard in New Tab
-    </a>
-  </div>
-</div>
+    <!-- ======= Dashboard Section ======= -->
+    <section id="dashboard" class="dashboard-section section">
+      <div class="container" data-aos="fade-up">
+        <header class="section-header">
+          <h2>Interactive EV Dashboard</h2>
+          <p>Explore comprehensive electric vehicle data and analytics</p>
+        </header>
 
-<style>
-  .tableau-embed-container {
-    border: 1px solid #e1e1e1;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  }
-</style>
-<!-- Load Tableau JS API -->
-<script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
+        <div class="tableau-embed-responsive-container">
+          <div class="tableau-embed-wrapper">
+            <iframe 
+              src="https://public.tableau.com/views/DrivingtheFutureInsightsintoElectricVehicles/DrivingtheFutureInsightsintoElectricVehicles?:embed=y&:showVizHome=no&:display_count=y&:toolbar=yes"
+              width="100%"
+              height="100%"
+              frameborder="0"
+              title="Driving the Future: Insights into Electric Vehicles"
+              aria-label="Interactive Electric Vehicle Data Dashboard"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="tableau-mobile-controls">
+            <button class="tableau-fullscreen-btn" onclick="toggleFullscreen()">
+              <i class="bi bi-arrows-fullscreen"></i> Fullscreen
+            </button>
+            <a href="https://public.tableau.com/views/DrivingtheFutureInsightsintoElectricVehicles/DrivingtheFutureInsightsintoElectricVehicles?:embed=y&:showVizHome=no&:display_count=y&:toolbar=yes" 
+               target="_blank" 
+               class="tableau-newtab-btn">
+              <i class="bi bi-box-arrow-up-right"></i> Open in New Tab
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- ======= Features Section ======= -->
-    <section id="features" class="features">
+    <section id="features" class="features section">
       <div class="container" data-aos="fade-up">
         <header class="section-header">
           <h2>Key Features</h2>
@@ -684,67 +1176,56 @@
 
         <div class="row">
           <div class="col-lg-6">
-            <img src="assets/img/logo1.jpg" alt="EV Analytics Dashboard Preview" class="img-fluid" loading="lazy"> </div>
+            <img src="assets/img/logo1.jpg" alt="EV Analytics Dashboard Preview" class="img-fluid rounded" loading="lazy" data-aos="zoom-out"> 
+          </div>
 
           <div class="col-lg-6 mt-5 mt-lg-0 d-flex">
             <div class="row align-self-center gy-4">
               <div class="col-md-6" data-aos="zoom-out" data-aos-delay="200">
-                <div class="feature-box d-flex align-items-center p-3 rounded-3 shadow-sm">
-                  <i class="bi bi-speedometer2 fs-1 text-primary me-3"></i>
-                  <div>
-                    <h3>Real-time Performance</h3>
-                    <p class="mb-0">Monitor EV performance metrics in real-time</p>
-                  </div>
+                <div class="feature-box">
+                  <i class="bi bi-speedometer2"></i>
+                  <h3>Real-time Performance</h3>
+                  <p>Monitor EV performance metrics in real-time</p>
                 </div>
               </div>
 
               <div class="col-md-6" data-aos="zoom-out" data-aos-delay="300">
-                <div class="feature-box d-flex align-items-center p-3 rounded-3 shadow-sm">
-                  <i class="bi bi-lightning-charge fs-1 text-primary me-3"></i>
-                  <div>
-                    <h3>Charging Analysis</h3>
-                    <p class="mb-0">Optimize charging patterns and infrastructure</p>
-                  </div>
+                <div class="feature-box">
+                  <i class="bi bi-lightning-charge"></i>
+                  <h3>Charging Analysis</h3>
+                  <p>Optimize charging patterns and infrastructure</p>
                 </div>
               </div>
 
               <div class="col-md-6" data-aos="zoom-out" data-aos-delay="400">
-                <div class="feature-box d-flex align-items-center p-3 rounded-3 shadow-sm">
-                  <i class="bi bi-graph-up fs-1 text-primary me-3"></i>
-                  <div>
-                    <h3>Market Trends</h3>
-                    <p class="mb-0">Track global EV adoption and sales trends</p>
-                  </div>
+                <div class="feature-box">
+                  <i class="bi bi-graph-up"></i>
+                  <h3>Market Trends</h3>
+                  <p>Track global EV adoption and sales trends</p>
                 </div>
               </div>
 
               <div class="col-md-6" data-aos="zoom-out" data-aos-delay="500">
-                <div class="feature-box d-flex align-items-center p-3 rounded-3 shadow-sm">
-                  <i class="bi bi-battery-full fs-1 text-primary me-3"></i>
-                  <div>
-                    <h3>Battery Insights</h3>
-                    <p class="mb-0">Detailed battery performance analytics</p>
-                  </div>
+                <div class="feature-box">
+                  <i class="bi bi-battery-full"></i>
+                  <h3>Battery Insights</h3>
+                  <p>Detailed battery performance analytics</p>
                 </div>
               </div>
 
               <div class="col-md-6" data-aos="zoom-out" data-aos-delay="600">
-                <div class="feature-box d-flex align-items-center p-3 rounded-3 shadow-sm">
-                  <i class="bi bi-geo-alt fs-1 text-primary me-3"></i>
-                  <div>
-                    <h3>Location Intelligence</h3>
-                    <p class="mb-0">Geospatial analysis of EV adoption</p>
-                  </div>
+                <div class="feature-box">
+                  <i class="bi bi-geo-alt"></i>
+                  <h3>Location Intelligence</h3>
+                  <p>Geospatial analysis of EV adoption</p>
                 </div>
               </div>
 
               <div class="col-md-6" data-aos="zoom-out" data-aos-delay="700">
-                <div class="feature-box d-flex align-items-center p-3 rounded-3 shadow-sm">
-                  <i class="bi bi-people fs-1 text-primary me-3"></i>
-                  <div>
-                    <h3>Consumer Behavior</h3>
-                    <p class="mb-0">Understand EV buyer preferences</p>
-                  </div>
+                <div class="feature-box">
+                  <i class="bi bi-people"></i>
+                  <h3>Consumer Behavior</h3>
+                  <p>Understand EV buyer preferences</p>
                 </div>
               </div>
             </div>
@@ -811,122 +1292,48 @@
           </div>
 
           <div class="col-lg-6">
-                <img src="assets/img/logo2.jpg" alt="EV Analytics Dashboard Preview" class="img-fluid" loading="lazy" height="1000"> 
- </div>
+            <img src="assets/img/logo2.jpg" alt="EV Market Growth" class="img-fluid rounded" loading="lazy" data-aos="zoom-out"> 
+          </div>
         </div>
       </div>
     </section>
 
-   <!-- Simple Tableau Embed for Your Story -->
-<div class="tableau-embed">
-  <iframe
-    src="https://public.tableau.com/views/DrivingtheFutureInsightsintoElectricVehicles/StoryofElectricCarsinIndia?:embed=y&:showVizHome=no"
-    width="100%"
-    height="800"
-    frameborder="0"
-    title="Story of Electric Cars in India"
-    aria-label="Interactive visualization showing the growth of electric vehicles in India">
-  </iframe>
-</div>
-
-<style>
-  .tableau-embed {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    margin: 20px 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  }
-</style>
-
-
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact section-bg">
+    <!-- ======= Story Section ======= -->
+    <section id="story" class="story-section section">
       <div class="container" data-aos="fade-up">
         <header class="section-header">
-          <h2>Contact Us</h2>
-          <p>Get in touch for a demo or consultation</p>
+          <h2>The EV Revolution Story</h2>
+          <p>Explore the journey of electric vehicles through interactive storytelling</p>
         </header>
 
-        <div class="row gy-4">
-          <div class="col-lg-6">
-            <div class="row gy-4">
-              <div class="col-md-6">
-                <div class="info-box p-4 rounded-3 h-100">
-                  <i class="bi bi-geo-alt fs-1 text-primary"></i>
-                  <h3>Our Headquarters</h3>
-                  <p>EV Analytics Center</p>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="info-box p-4 rounded-3 h-100">
-                  <i class="bi bi-telephone fs-1 text-primary"></i>
-                  <h3>Call Us</h3>
-                  <p>+91 7995252381<br>+91 7995252381</p>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="info-box p-4 rounded-3 h-100">
-                  <i class="bi bi-envelope fs-1 text-primary"></i>
-                  <h3>Email Us</h3>
-                  <p>info@evanalytics.com<br>sales@evanalytics.com</p>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="info-box p-4 rounded-3 h-100">
-                  <i class="bi bi-clock fs-1 text-primary"></i>
-                  <h3>Office Hours</h3>
-                  <p>Monday - Friday: 9AM - 6PM<br>Saturday: 10AM - 2PM</p>
-                </div>
-              </div>
-            </div>
+        <div class="tableau-embed-responsive-container">
+          <div class="tableau-embed-wrapper">
+            <iframe
+              src="https://public.tableau.com/views/DrivingtheFutureInsightsintoElectricVehicles/StoryofElectricCarsinIndia?:embed=y&:showVizHome=no"
+              width="100%"
+              height="100%"
+              frameborder="0"
+              title="Story of Electric Cars in India"
+              aria-label="Interactive visualization showing the growth of electric vehicles in India"
+              allowfullscreen>
+            </iframe>
           </div>
-
-          <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" class="php-email-form p-4 rounded-3 shadow-sm">
-              <div class="row gy-4">
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required>
-                </div>
-                <div class="col-md-6">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required>
-                </div>
-                <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required>
-                </div>
-                <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
-                </div>
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-                  <button type="submit" class="btn btn-primary">Send Message</button>
-                </div>
-              </div>
-            </form>
+          <div class="tableau-mobile-controls">
+            <button class="tableau-fullscreen-btn" onclick="toggleFullscreen()">
+              <i class="bi bi-arrows-fullscreen"></i> Fullscreen
+            </button>
+            <a href="https://public.tableau.com/views/DrivingtheFutureInsightsintoElectricVehicles/StoryofElectricCarsinIndia?:embed=y&:showVizHome=no" 
+               target="_blank" 
+               class="tableau-newtab-btn">
+              <i class="bi bi-box-arrow-up-right"></i> Open in New Tab
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Newsletter Section -->
-    <section class="newsletter py-5 bg-primary text-white">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8 text-center">
-            <h2 class="mb-4">Subscribe to Our EV Insights Newsletter</h2>
-            <p class="mb-4">Get monthly updates on the latest EV trends, market analysis, and technology breakthroughs</p>
-            <form class="d-flex">
-              <input type="email" class="form-control me-2" placeholder="Your email address">
-              <button class="btn btn-dark" type="submit">Subscribe</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
+   
+    
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="footer-top">
@@ -948,41 +1355,9 @@
             </div>
           </div>
 
-          <div class="col-lg-2 col-6 footer-links">
-            <h4>Quick Links</h4>
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="#hero">Home</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#about">About</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#dashboard">Dashboard</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#features">Features</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#team">Team</a></li>
-            </ul>
-          </div>
+          
 
-          <div class="col-lg-2 col-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Market Analysis</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Performance Benchmarking</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Charging Infrastructure</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Battery Analytics</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Custom Reports</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-4 col-md-12 footer-contact">
-            <h4>Contact Info</h4>
-            <p>
-              EV Analytics Center <br>
-             <br>
-             <br><br>
-              <strong>Phone:</strong>+91 7995252381<br>
-              <strong>Email:</strong> info@evanalytics.com<br>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+          
 
     <div class="container py-4">
       <div class="copyright">
@@ -1006,15 +1381,21 @@
   <!-- Template Main JS File -->
   <script>
     // Mobile nav toggle
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', function() {
+      "use strict";
+
+      // Mobile nav toggle
       const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
       const navbar = document.querySelector('#navbar');
       
-      mobileNavToggle.addEventListener('click', () => {
-        navbar.classList.toggle('navbar-mobile');
-        mobileNavToggle.classList.toggle('bi-list');
-        mobileNavToggle.classList.toggle('bi-x');
-      });
+      if (mobileNavToggle && navbar) {
+        mobileNavToggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          navbar.classList.toggle('navbar-mobile');
+          this.classList.toggle('bi-list');
+          this.classList.toggle('bi-x');
+        });
+      }
       
       // Navbar links active state on scroll
       const navbarlinks = document.querySelectorAll('#navbar .scrollto');
@@ -1045,7 +1426,7 @@
           if (document.querySelector(this.hash)) {
             e.preventDefault();
             
-            const navbar = document.querySelector('#navbar');
+            // Close mobile menu if open
             if (navbar.classList.contains('navbar-mobile')) {
               navbar.classList.remove('navbar-mobile');
               const navbarToggle = document.querySelector('.mobile-nav-toggle');
@@ -1053,17 +1434,25 @@
               navbarToggle.classList.toggle('bi-x');
             }
             
+            // Scroll to section
             const offset = 70;
             const elementPos = document.querySelector(this.hash).offsetTop;
             window.scrollTo({
               top: elementPos - offset,
               behavior: 'smooth'
             });
+            
+            // Update URL without page reload
+            if (history.pushState) {
+              history.pushState(null, null, this.hash);
+            } else {
+              window.location.hash = this.hash;
+            }
           }
         });
       });
       
-      // Scroll with ofset on page load with hash links in the url
+      // Scroll with offset on page load with hash links in the url
       if (window.location.hash) {
         if (document.querySelector(window.location.hash)) {
           const offset = 70;
@@ -1090,34 +1479,36 @@
       window.addEventListener('scroll', toggleBacktotop);
       
       // Testimonials slider
-      new Swiper('.testimonials-slider', {
-        speed: 600,
-        loop: true,
-        autoplay: {
-          delay: 5000,
-          disableOnInteraction: false
-        },
-        slidesPerView: 'auto',
-        pagination: {
-          el: '.swiper-pagination',
-          type: 'bullets',
-          clickable: true
-        },
-        breakpoints: {
-          320: {
-            slidesPerView: 1,
-            spaceBetween: 20
+      if (document.querySelector('.testimonials-slider')) {
+        new Swiper('.testimonials-slider', {
+          speed: 600,
+          loop: true,
+          autoplay: {
+            delay: 5000,
+            disableOnInteraction: false
           },
-          768: {
-            slidesPerView: 2,
-            spaceBetween: 20
+          slidesPerView: 'auto',
+          pagination: {
+            el: '.swiper-pagination',
+            type: 'bullets',
+            clickable: true
           },
-          1200: {
-            slidesPerView: 3,
-            spaceBetween: 20
+          breakpoints: {
+            320: {
+              slidesPerView: 1,
+              spaceBetween: 20
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 20
+            },
+            1200: {
+              slidesPerView: 3,
+              spaceBetween: 20
+            }
           }
-        }
-      });
+        });
+      }
       
       // Animation on scroll
       AOS.init({
@@ -1131,28 +1522,36 @@
       const counters = document.querySelectorAll('[data-count]');
       const speed = 200;
       
-      counters.forEach(counter => {
-        const target = +counter.getAttribute('data-count');
-        const count = +counter.innerText;
-        const increment = target / speed;
+      if (counters.length) {
+        const animateCounters = () => {
+          counters.forEach(counter => {
+            const target = +counter.getAttribute('data-count');
+            const count = +counter.innerText;
+            const increment = target / speed;
+            
+            if(count < target) {
+              counter.innerText = Math.ceil(count + increment);
+              setTimeout(animateCounters, 1);
+            } else {
+              counter.innerText = target;
+            }
+          });
+        };
         
-        if(count < target) {
-          counter.innerText = Math.ceil(count + increment);
-          setTimeout(updateCount, 1);
-        } else {
-          counter.innerText = target;
-        }
+        // Only animate when in view
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              animateCounters();
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
         
-        function updateCount() {
-          const count = +counter.innerText;
-          if(count < target) {
-            counter.innerText = Math.ceil(count + increment);
-            setTimeout(updateCount, 1);
-          } else {
-            counter.innerText = target;
-          }
-        }
-      });
+        counters.forEach(counter => {
+          observer.observe(counter);
+        });
+      }
       
       // Animate skill bars
       const skillBars = document.querySelectorAll('.skill-progress');
@@ -1166,18 +1565,67 @@
       
       // Initialize skill bars when in view
       const skillsSection = document.querySelector('.skills');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            animateSkillBars();
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-      
       if (skillsSection) {
-        observer.observe(skillsSection);
+        const skillsObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              animateSkillBars();
+              skillsObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        skillsObserver.observe(skillsSection);
       }
+      
+      // Tableau dashboard fullscreen toggle
+      window.toggleFullscreen = function() {
+        const container = document.querySelector('.tableau-embed-responsive-container');
+        const iframe = document.querySelector('.tableau-embed-wrapper iframe');
+        
+        if (!container.classList.contains('tableau-fullscreen-mode')) {
+          // Enter fullscreen
+          container.classList.add('tableau-fullscreen-mode');
+          iframe.setAttribute('height', '100%');
+          document.body.style.overflow = 'hidden';
+        } else {
+          // Exit fullscreen
+          container.classList.remove('tableau-fullscreen-mode');
+          iframe.setAttribute('height', '100%');
+          document.body.style.overflow = '';
+        }
+      };
+      
+      // Adjust iframe height on mobile orientation change
+      function handleOrientationChange() {
+        const wrapper = document.querySelector('.tableau-embed-wrapper');
+        if (wrapper && window.innerWidth < 768) {
+          if (window.matchMedia("(orientation: portrait)").matches) {
+            wrapper.style.paddingBottom = '120%';
+          } else {
+            wrapper.style.paddingBottom = '60%';
+          }
+        }
+      }
+      
+      // Initialize
+      window.addEventListener('DOMContentLoaded', () => {
+        handleOrientationChange();
+        window.addEventListener('resize', handleOrientationChange);
+        window.addEventListener('orientationchange', handleOrientationChange);
+      });
+      
+      // Preloader (optional)
+      window.addEventListener('load', function() {
+        const preloader = document.querySelector('.preloader');
+        if (preloader) {
+          preloader.style.transition = 'opacity 0.5s';
+          preloader.style.opacity = '0';
+          setTimeout(() => {
+            preloader.style.display = 'none';
+          }, 500);
+        }
+      });
     });
   </script>
 </body>
